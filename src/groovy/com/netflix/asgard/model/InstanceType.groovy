@@ -18,6 +18,9 @@ package com.netflix.asgard.model
 enum InstanceType {
 
     T1Micro("t1.micro"),
+    T2Micro("t2.micro"),
+    T2Small("t2.small"),
+    T2Medium("t2.medium"),
     M1Small("m1.small"),
     M1Medium("m1.medium"),
     M1Large("m1.large"),
@@ -43,6 +46,11 @@ enum InstanceType {
     C32xlarge("c3.2xlarge"),
     C34xlarge("c3.4xlarge"),
     C38xlarge("c3.8xlarge"),
+    C4Large("c4.large"),
+    C4Xlarge("c4.xlarge"),
+    C42XLarge("c4.2xlarge"),
+    C44XLarge("c4.4xlarge"),
+    C48XLarge("c4.8xlarge"),
     Cc14xlarge("cc1.4xlarge"),
     Cc28xlarge("cc2.8xlarge"),
     G22xlarge("g2.2xlarge"),
