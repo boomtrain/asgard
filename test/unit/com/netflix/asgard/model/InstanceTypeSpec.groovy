@@ -73,8 +73,8 @@ class InstanceTypeSpec extends Specification {
         then:
         type.toString() == 'm3.large'
         when:
-        InstanceType type2 = InstanceType.fromValue('m1.xlarge')
+        InstanceType type2 = InstanceType.fromValue('m4.xlarge')
         then:
-        type2.toString() == 'm1.xlarge'
+        type2.toString() == 'm4.xlarge'
     }
 }

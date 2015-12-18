@@ -326,13 +326,11 @@ class AutoScalingControllerSpec extends Specification {
 
         //note: attrs['instanceTypes'] is sorted by price - cheapest to most expensive
         attrs['instanceTypes'][0].getMonthlyLinuxOnDemandPrice() == '$9.36'
-        ['t2.micro', 't2.small', 't2.medium', 'm3.medium', 'c3.large', 'm3.large', 'r3.large', 'c3.xlarge', 'm3.xlarge', 'r3.xlarge',
-         'c3.2xlarge', 'm3.2xlarge', 'r3.2xlarge', 'c3.4xlarge', 'i2.xlarge', 'r3.4xlarge', 'c3.8xlarge', 'i2.2xlarge',
-         'r3.8xlarge', 'i2.4xlarge', 'hs1.8xlarge', 'i2.8xlarge', 'huge.mainframe', 'c1.medium', 'c1.xlarge',
-         'c4.2xlarge', 'c4.4xlarge', 'c4.8xlarge', 'c4.large', 'c4.xlarge',
-         'cc1.4xlarge', 'cc2.8xlarge', 'cg1.4xlarge', 'cr1.8xlarge', 'g2.2xlarge', 'hi1.4xlarge', 'm1.large',
-         'm1.medium', 'm1.small', 'm1.xlarge', 'm2.2xlarge', 'm2.4xlarge', 'm2.xlarge', 't1.micro'
-        ] == attrs['instanceTypes']*.name
+        ['t2.micro', 't2.small', 't2.medium', 'm3.medium', 'c3.large', 'm3.large', 'r3.large', 'c3.xlarge', 'm3.xlarge',
+         'r3.xlarge', 'c3.2xlarge', 'm3.2xlarge', 'r3.2xlarge', 'c3.4xlarge', 'i2.xlarge', 'r3.4xlarge', 'c3.8xlarge',
+         'i2.2xlarge', 'r3.8xlarge', 'i2.4xlarge', 'i2.8xlarge', 'huge.mainframe', 'c4.2xlarge', 'c4.4xlarge',
+         'c4.8xlarge', 'c4.large', 'c4.xlarge', 'g2.2xlarge', 'm4.10xlarge', 'm4.2xlarge', 'm4.4xlarge', 'm4.large',
+         'm4.xlarge', 't1.micro', 't1.nano', 't2.large'] == attrs['instanceTypes']*.name
     }
 
     def "create should handle invalid inputs"() {

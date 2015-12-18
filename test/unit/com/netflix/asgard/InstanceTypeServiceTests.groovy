@@ -26,12 +26,10 @@ class InstanceTypeServiceTests extends GroovyTestCase {
     void testGetInstanceTypeData() {
         InstanceTypeService instanceTypeService = Mocks.instanceTypeService()
         List<InstanceTypeData> instanceTypes = instanceTypeService.getInstanceTypes(Mocks.userContext())
-        assert instanceTypes.any { it.name == 'm1.large' }
+        assert instanceTypes.any { it.name == 'm4.large' }
         assert instanceTypes.any { it.name == 'i2.xlarge' }
         assert instanceTypes.any { it.name == 'm3.medium' }
         assert instanceTypes.any { it.name == 'r3.xlarge' }
-        // Custom instance type from config is included
-        assert instanceTypes.any { it.name == 'huge.mainframe' }
     }
 
     void testRetrieveInstanceTypeOnDemandPricingData() {
@@ -46,7 +44,6 @@ class InstanceTypeServiceTests extends GroovyTestCase {
         assert 0.280 == usEastOnDemandPricing.get(InstanceType.M3Xlarge, InstanceProductType.LINUX_UNIX)
         assert 0.560 == usEastOnDemandPricing.get(InstanceType.M32xlarge, InstanceProductType.LINUX_UNIX)
         assert 2.80 == usEastOnDemandPricing.get(InstanceType.R38xlarge, InstanceProductType.LINUX_UNIX)
-        assertNull usEastOnDemandPricing.get(InstanceType.Cc14xlarge, InstanceProductType.LINUX_UNIX)
 
         // Europe
         RegionalInstancePrices euWestOnDemandPricing = onDemandPricing.get(Region.EU_WEST_1)
@@ -54,6 +51,5 @@ class InstanceTypeServiceTests extends GroovyTestCase {
         assert 0.308 == euWestOnDemandPricing.get(InstanceType.M3Xlarge, InstanceProductType.LINUX_UNIX)
         assert 0.616 == euWestOnDemandPricing.get(InstanceType.M32xlarge, InstanceProductType.LINUX_UNIX)
         assert 3.120 == euWestOnDemandPricing.get(InstanceType.R38xlarge, InstanceProductType.LINUX_UNIX)
-        assertNull euWestOnDemandPricing.get(InstanceType.Cc14xlarge, InstanceProductType.LINUX_UNIX)
     }
 }

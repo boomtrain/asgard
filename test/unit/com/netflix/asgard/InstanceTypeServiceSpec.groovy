@@ -52,9 +52,6 @@ class InstanceTypeServiceSpec extends Specification {
         List<InstanceProductType> products = InstanceProductType.values() as List
         Table<InstanceType, InstanceProductType, BigDecimal> pricesByHardwareAndProduct =
             ArrayTable.create(InstanceType.values() as List, products)
-        pricesByHardwareAndProduct.put(InstanceType.M1Small, InstanceProductType.LINUX_UNIX, 0.05)
-        pricesByHardwareAndProduct.put(InstanceType.M1Medium, InstanceProductType.LINUX_UNIX, 0.23)
-        pricesByHardwareAndProduct.put(InstanceType.M1Large, InstanceProductType.LINUX_UNIX, 0.68)
         RegionalInstancePrices regionalInstancePrices = RegionalInstancePrices.create(pricesByHardwareAndProduct)
         caches.allOnDemandPrices.regionsToRegionalPrices.put(Region.US_EAST_1, regionalInstancePrices)
 
@@ -74,18 +71,15 @@ class InstanceTypeServiceSpec extends Specification {
         List<InstanceTypeData> instanceTypes = instanceTypeService.buildInstanceTypes(Region.defaultRegion())
 
         then:
-        ['c1.medium', 'c1.xlarge', 'c3.2xlarge', 'c3.4xlarge', 'c3.8xlarge', 'c3.large', 'c3.xlarge', 'c4.2xlarge',
-                'c4.4xlarge', 'c4.8xlarge', 'c4.large', 'c4.xlarge', 'cc1.4xlarge',
-                'cc2.8xlarge', 'cg1.4xlarge', 'cr1.8xlarge', 'g2.2xlarge', 'hi1.4xlarge', 'hs1.8xlarge', 'i2.2xlarge',
-                'i2.4xlarge', 'i2.8xlarge', 'i2.xlarge', 'm1.large', 'm1.medium', 'm1.small', 'm1.xlarge', 'm2.2xlarge',
-                'm2.4xlarge', 'm2.xlarge', 'm3.2xlarge', 'm3.large', 'm3.medium', 'm3.xlarge', 'r3.2xlarge',
-                'r3.4xlarge', 'r3.8xlarge', 'r3.large', 'r3.xlarge', 'superduper.4xlarge',
-                't1.micro', 't2.medium', 't2.micro', 't2.small'] == instanceTypes*.name.sort()
+        ['c3.2xlarge', 'c3.4xlarge', 'c3.8xlarge', 'c3.large', 'c3.xlarge', 'c4.2xlarge', 'c4.4xlarge', 'c4.8xlarge',
+         'c4.large', 'c4.xlarge', 'g2.2xlarge', 'i2.2xlarge', 'i2.4xlarge', 'i2.8xlarge', 'i2.xlarge', 'm1.medium',
+         'm3.2xlarge', 'm3.large', 'm3.medium', 'm3.xlarge', 'm4.10xlarge', 'm4.2xlarge', 'm4.4xlarge', 'm4.large',
+         'm4.xlarge', 'r3.2xlarge', 'r3.4xlarge', 'r3.8xlarge', 'r3.large', 'r3.xlarge', 'superduper.4xlarge',
+         't1.micro', 't1.nano', 't2.large', 't2.medium', 't2.micro', 't2.small'] == instanceTypes*.name.sort()
         //each list contains mostly nulls
         def allSizes = instanceTypes*.hardwareProfile*.size
         allSizes.removeAll { it == null }
-        ['Large', 'Medium', 'SSD', 'Small'] == allSizes.sort()
-        [0.05, 0.23, 0.68, 3.10] == instanceTypes*.linuxOnDemandPrice[-4..-1]
+        ['Custom medium', 'SSD'] == allSizes.sort()
     }
 
     def 'instance types list should be sorted by price ascending with unpriced types at the end'() {
